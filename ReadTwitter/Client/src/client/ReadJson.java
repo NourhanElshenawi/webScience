@@ -1,5 +1,6 @@
 package client;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -15,37 +16,27 @@ import org.json.simple.parser.ParseException;
 public class ReadJson {
     public static void main(String[] args) {
         
-//        JSONParser parser = new JSONParser();
-//        
-//        try {
-//            Object obj = parser.parse(new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7"));
-//            
-//            JSONObject jsonObject= (JSONObject) obj;
-//            
-//            String user = (String) jsonObject.get("user");
-//            System.out.println("!!!!\n" + user);
-//    
-//        } catch(FileNotFoundException e){
-//            e.printStackTrace();
-//            
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        
+        
+        
 JSONParser parser = new JSONParser();
 
 	try {
 
-		Object obj = parser.parse(new FileReader("C:\\Users\\nourhan\\Desktop\\testingtwitter.json.7"));
+	    FileReader fr = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
+            BufferedReader br = new BufferedReader(fr);
 
-		JSONObject jsonObject = (JSONObject) obj;
+        while (br.readLine() != null){
+            Object obj = parser.parse(br.readLine());
+            JSONObject jsonObject = (JSONObject) obj;
 
-		JSONObject user = (JSONObject) jsonObject.get("user");
+            JSONObject user = (JSONObject) jsonObject.get("user");
             long userID = (Long) user.get("id");
-		System.out.println(user);
+            System.out.println(user);
             System.out.println(userID);
 
+        }
+		
 //		long age = (Long) jsonObject.get("age");
 //		System.out.println(age);
 
