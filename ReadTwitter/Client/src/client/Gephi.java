@@ -1,8 +1,10 @@
 package client;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.HashMap;
@@ -17,48 +19,67 @@ public class Gephi {
         HashMap hm = new HashMap();
          HashMap csv = new HashMap();
 JSONParser parser = new JSONParser();
-	try {
-
-	    FileReader fr = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
-            BufferedReader br = new BufferedReader(fr);
-	    while (br.readLine() != null){
-                    Object obj = parser.parse(br.readLine());
-                    JSONObject jsonObject = (JSONObject) obj;
-                    JSONObject user = (JSONObject) jsonObject.get("user");
-                hm.put(user.get("id"), user.get("name"));
-            if(jsonObject.get("in_reply_to_user_id") != null){
+//	try {
+//
+//	    FileReader fr = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
+//            BufferedReader br = new BufferedReader(fr);
+//	    while (br.readLine() != null){
+//                    Object obj = parser.parse(br.readLine());
+//                    JSONObject jsonObject = (JSONObject) obj;
+//                    JSONObject user = (JSONObject) jsonObject.get("user");
+//                hm.put(user.get("id"), user.get("name"));
+//                
+//                }
+//	    BufferedReader br2 = new BufferedReader(fr);
+//            
+//	   
+//            
+//	} catch (FileNotFoundException e) {
+//		e.printStackTrace();
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//	} catch (ParseException e) {
+//		e.printStackTrace();
+//	}
+//        
+    try{
+        
+    	    FileReader fr2 = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
+    	    BufferedReader br2 = new BufferedReader(fr2);
+    	    BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\nourhan\\Desktop\\tesing123.csv"));
+    	    while (br2.readLine() != null){
+    	            Object obj = parser.parse(br2.readLine());
+    	            JSONObject jsonObject = (JSONObject) obj;
+    	            JSONObject user = (JSONObject) jsonObject.get("user");
+    	    if(jsonObject.get("in_reply_to_user_id") != null){
                 
-            }
-                
-                }
-	    BufferedReader br2 = new BufferedReader(fr);
-        while (br2.readLine() != null){
-System.out.println("HIIIIII");                        
-            Object obj2 = parser.parse(br2.readLine());
-            JSONObject jsonObject2 = (JSONObject) obj2;
-            JSONObject user2 = (JSONObject) jsonObject2.get("user");
-            
-            long userID = (Long) user2.get("id");
-            long inReply = (Long) user2.get("in_reply_to_user_id");
-            
-            if(jsonObject2.get("in_reply_to_user_id") != null){
-                csv.put(user2.get("name"), hm.get(inReply));
-                System.out.println("USER: " + userID + " REPLIED TO: " + inReply);
-                System.out.println(jsonObject2.get("in_reply_to_user_id"));
-            }
-            
-
-        }
-            
-	} catch (FileNotFoundException e) {
+                out.write(addConnection((String) user.get("screen_name"), (String) jsonObject.get("in_reply_to_screen_name")));
+                out.newLine();
+//                S = S + addConnection((String) user.get("name"), (String) jsonObject.get("in_reply_to_screen_name"));    
+//                System.out.println("String: " + S);
+    	    }
+    	        
+    	        }
+        out.close();
+        
+    	} catch (FileNotFoundException e) {
 		e.printStackTrace();
 	} catch (IOException e) {
 		e.printStackTrace();
 	} catch (ParseException e) {
 		e.printStackTrace();
 	}
-
+    
+      
      }
+    
+    
+    public static String addConnection(String name, String reply){
+        
+        String temp = name + "," + reply; 
+        System.out.println(temp);
+        return temp;
+    }
 
 }
     
