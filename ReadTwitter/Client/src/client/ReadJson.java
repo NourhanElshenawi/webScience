@@ -20,7 +20,9 @@ public class ReadJson {
         
         
 JSONParser parser = new JSONParser();
-
+         String S="";
+         String name="";
+         long ID=0;
 	try {
 
 	    FileReader fr = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
@@ -32,10 +34,22 @@ JSONParser parser = new JSONParser();
 
             JSONObject user = (JSONObject) jsonObject.get("user");
             long userID = (Long) user.get("id");
-            System.out.println(user);
-            System.out.println(userID);
+//            System.out.println(user);
+//            System.out.println(userID);
+            
+            if( userID == 2193594854L ){
+                name = (String) user.get("name");
+                ID = userID;
+                String f = (String) jsonObject.get("text");
+                // concat method did not work
+                S = S + "\n" + f;
+//                System.out.println("HELLOOO" + jsonObject.get("text"));
+//                System.out.println(jsonObject);
+            }
 
         }
+
+	    System.out.println("All Tweets belonging to " + name+ "with user id: "+ ID +": \n" + S);
 		
 //		long age = (Long) jsonObject.get("age");
 //		System.out.println(age);
