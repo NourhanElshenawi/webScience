@@ -4,12 +4,20 @@ public class TwitterUser {
     public long id=0;
     public String tweets="";
     public String name="";
+    public String hashtags="";
 
 
     public TwitterUser(long id, String name, String tweets) {
         super();
         this.id = id;
         this.tweets = tweets;
+        this.name = name;
+    }
+    
+    public TwitterUser(String name, long id, String hashtags) {
+        super();
+        this.id = id;
+        this.hashtags = hashtags;
         this.name = name;
     }
     
@@ -31,6 +39,10 @@ public class TwitterUser {
 
     public String getTweets() {
         return tweets;
+    }
+    
+    public String getName() {
+        return name;
     }
 
     @Override

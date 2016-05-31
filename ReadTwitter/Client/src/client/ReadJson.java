@@ -1,13 +1,17 @@
 package client;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Iterator;
+
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,7 +21,7 @@ import org.json.simple.parser.ParseException;
 public class ReadJson {
     public static void main(String[] args) {
         
-        HashMap hm = new HashMap();
+        HashMap<Long, TwitterUser> hm = new HashMap<Long, TwitterUser>();
         
         
 JSONParser parser = new JSONParser();
@@ -63,6 +67,23 @@ JSONParser parser = new JSONParser();
 		e.printStackTrace();
 	}
 
+     /////////////////
+     for (Map.Entry<Long, TwitterUser> entry : hm.entrySet()) {
+         Long key = entry.getKey();
+         TwitterUser value = entry.getValue();
+         String textName = value.getName();
+         String textTweets = value.getTweets();
+         
+         String location = "C:\\Users\\nourhan\\Desktop\\TestingTweets" + textName + "Tweets.csv";         
+
+            try {
+                BufferedWriter out = new BufferedWriter(new FileWriter(location));
+                out.write(textTweets);
+            } catch (IOException e) {
+            }
+            // ...
+     }
+     
      }
 
 }
