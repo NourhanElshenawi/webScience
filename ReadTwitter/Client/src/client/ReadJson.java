@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -28,6 +29,7 @@ JSONParser parser = new JSONParser();
          String S="";
          String name="";
          long ID=0;
+//         ArrayList<String> tags = new ArrayList<String>();
 	try {
 
 	    FileReader fr = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
@@ -38,25 +40,41 @@ JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) obj;
 
             JSONObject user = (JSONObject) jsonObject.get("user");
+            JSONObject entities = (JSONObject) jsonObject.get("entities");
             long userID = (Long) user.get("id");
-            if(userID == 2193594854L){
-                System.out.println(user);
-                System.out.println(jsonObject.get("text"));
-            }
             
-            if(hm.containsKey(userID) == true && userID == 2193594854L){
+            JSONArray hashtags = (JSONArray) entities.get("hashtags");
+                    Iterator i = hashtags.iterator();
+            ArrayList<String> tags = new ArrayList<String>();
+            if(userID == 1538983531){
+                System.out.println("ID: " +userID);
+            }
+                    while (i.hasNext()) {
+//                System.out.println("SIZE: " + hashtags.size());
+//                for(int i=0; i<hashtags.size(); i++){
+                        JSONObject test = (JSONObject) i.next();
+//                        System.out.println(test);
+                        tags.add((String) test.get("text"));
+//                        System.out.println("HASHTAGS: \n" + test.get("text"));
+                    }
+            
+            
+//            if(userID == 2193594854L){
+//                System.out.println(user);
+//                System.out.println(jsonObject.get("text"));
+//            }
+            
+            if(hm.containsKey(userID) == true){
                 TwitterUser temp = (TwitterUser) hm.get(userID);
-                System.out.println("Adding a second tweet \n");
-                System.out.println((String) jsonObject.get("text")+"\n");
                 temp.addTweet((String) jsonObject.get("text"));
-                temp.getTweets();
-            } else
-                hm.put(userID, new TwitterUser(userID, (String) user.get("name"), (String) jsonObject.get("text")));
+            } 
+            else
+                hm.put(userID, new TwitterUser(userID, (String) user.get("name"), (String) jsonObject.get("text"), tags));
             
 
         }
             
-            System.out.println("HashMap:\n"+ hm.get(2193594854L).toString());
+            System.out.println("HashMap:\n"+ hm.get(1538983531L).toString());
 		
 
 	} catch (FileNotFoundException e) {
@@ -68,21 +86,45 @@ JSONParser parser = new JSONParser();
 	}
 
      /////////////////
-     for (Map.Entry<Long, TwitterUser> entry : hm.entrySet()) {
+//     for (Map.Entry<Long, TwitterUser> entry : hm.entrySet()) {
+//         Long key = entry.getKey();
+//         TwitterUser value = entry.getValue();
+//         String textName = value.getName();
+//         String textTweets = value.getTweets();
+//         
+//         String location = "C:\\Users\\nourhan\\Desktop\\TestingTweets\\" + key + "Tweets.txt";         
+//
+//            try {
+//                BufferedWriter out = new BufferedWriter(new FileWriter(location));
+//                out.write(textTweets);
+//                out.close();
+//            } catch (IOException e) {
+//            }
+//     }
+        
+        for (Map.Entry<Long, TwitterUser> entry : hm.entrySet()) {
          Long key = entry.getKey();
          TwitterUser value = entry.getValue();
          String textName = value.getName();
-         String textTweets = value.getTweets();
+         ArrayList<String> textTags = value.getHashtags();
          
-         String location = "C:\\Users\\nourhan\\Desktop\\TestingTweets" + textName + "Tweets.csv";         
+         String location = "C:\\Users\\nourhan\\Desktop\\TestingTags\\" + key + "Tags.txt";         
 
             try {
                 BufferedWriter out = new BufferedWriter(new FileWriter(location));
-                out.write(textTweets);
+                
+                for(int i=0; i<textTags.size(); i++){
+                    out.write(textTags.get(i));
+                    out.newLine();
+                }
+                System.out.println(textTags);
+                out.close();
             } catch (IOException e) {
             }
-            // ...
      }
+     
+     
+     
      
      }
 

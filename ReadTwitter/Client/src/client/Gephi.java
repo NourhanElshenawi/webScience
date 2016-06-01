@@ -22,29 +22,6 @@ public class Gephi {
         HashMap hm = new HashMap();
          HashMap csv = new HashMap();
 JSONParser parser = new JSONParser();
-//	try {
-//
-//	    FileReader fr = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
-//            BufferedReader br = new BufferedReader(fr);
-//	    while (br.readLine() != null){
-//                    Object obj = parser.parse(br.readLine());
-//                    JSONObject jsonObject = (JSONObject) obj;
-//                    JSONObject user = (JSONObject) jsonObject.get("user");
-//                hm.put(user.get("id"), user.get("name"));
-//                
-//                }
-//	    BufferedReader br2 = new BufferedReader(fr);
-//            
-//	   
-//            
-//	} catch (FileNotFoundException e) {
-//		e.printStackTrace();
-//	} catch (IOException e) {
-//		e.printStackTrace();
-//	} catch (ParseException e) {
-//		e.printStackTrace();
-//	}
-//        
     try{
         
     	    FileReader fr2 = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
