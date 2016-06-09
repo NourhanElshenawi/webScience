@@ -22,12 +22,14 @@ public class Gephi {
         HashMap hm = new HashMap();
          HashMap csv = new HashMap();
 JSONParser parser = new JSONParser();
+
     try{
         
-    	    FileReader fr2 = new FileReader("C:\\Users\\nourhan\\Desktop\\tweets.json.7");
+    	    FileReader fr2 = new FileReader("C:\\Users\\nourhan\\Desktop\\Final WebScience\\Json\\4tweets.json");
     	    BufferedReader br2 = new BufferedReader(fr2);
-    	    BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\nourhan\\Desktop\\tesing123.csv"));
-    	    while (br2.readLine() != null){
+    	    BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\nourhan\\Desktop\\Final WebScience\\results\\user-to-userRelationship.csv"));
+            
+            while (br2.readLine() != null){
     	            Object obj = parser.parse(br2.readLine());
     	            JSONObject jsonObject = (JSONObject) obj;
     	            JSONObject user = (JSONObject) jsonObject.get("user");

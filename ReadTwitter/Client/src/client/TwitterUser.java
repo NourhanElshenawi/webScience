@@ -6,29 +6,41 @@ public class TwitterUser {
     public long id=0;
     public String tweets="";
     public String name="";
+    public String screenName="";
     public ArrayList<String> hashtags = new ArrayList<String>();
+    public String inReplyTo="";
+    public String inReplyToID = "";
 
 
-    public TwitterUser(long id, String name, String tweets) {
+    public TwitterUser(long id, String name,String screenName, String tweets) {
         super();
         this.id = id;
         this.tweets = tweets;
         this.name = name;
+        this.screenName = screenName;
+//        this.inReplyTo = inReplyTo;
+//        this.inReplyToID = inReplyToID;
     }
     
-    public TwitterUser(long id, String name, String tweets, ArrayList<String> hashtags) {
+    public TwitterUser(long id, String name,String screenName, String tweets, ArrayList<String> hashtags, String inReplyTo, String inReplyToID) {
         super();
         this.id = id;
         this.tweets = tweets;
         this.name = name;
         this.hashtags = hashtags;
+        this.screenName = screenName;
+        this.inReplyTo=inReplyTo;
+        this.inReplyToID = inReplyToID;
     }
     
-    public TwitterUser(String name, long id, ArrayList<String> hashtags) {
+    public TwitterUser(String name,String screenName, long id, ArrayList<String> hashtags) {
         super();
         this.id = id;
         this.hashtags = hashtags;
         this.name = name;
+        this.screenName = screenName;
+//        this.inReplyTo=inReplyTo;
+//        this.inReplyToID = inReplyToID;
     }
     
     public TwitterUser(long id) {
@@ -41,6 +53,10 @@ public class TwitterUser {
 //        System.out.println("Temp"+temp);
         this.tweets = temp + "\n" + tweet;
         
+    }
+    
+    public void addHT(String ht){
+        hashtags.add(ht);
     }
 
     public void setTweets(String tweets) {
@@ -58,6 +74,19 @@ public class TwitterUser {
     
     public String getName() {
         return name;
+    }
+    
+    public String getScreenName() {
+        return screenName;
+    }
+    
+    public String getInReplyTo() {
+        return inReplyTo;
+    }
+    
+    public String getInReplyToID() {
+        return inReplyToID;
+        
     }
 
     @Override
